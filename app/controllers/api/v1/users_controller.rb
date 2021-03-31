@@ -1,8 +1,8 @@
 module Api
     module V1
         class UsersController < ApplicationController
-            before_action :authorize_request, except: :create
-            before_action :find_user, except: %i[create index]
+            before_action :authorize_request, except: %i[create confirm_email]
+            before_action :find_user, except: %i[create index confirm_email]
           
             # GET /users
             def index
@@ -48,7 +48,7 @@ module Api
           
             def user_params
               params.permit(
-                :avatar, :name, :username, :email, :password, :password_confirmation
+                :avatar, :name, :username, :email, :password, :password_confirmation, :token, :age
               )
             end
         end

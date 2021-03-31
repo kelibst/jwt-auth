@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :users 
+      resources :users do
+        member do
+          get :confirm_email, to: 'authentication#confirm'
+        end
+      end
       post '/auth/login', to: 'authentication#login'
     end
   end
