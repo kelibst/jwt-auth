@@ -6,8 +6,8 @@ Rails.application.routes.draw do
           get :confirm_email, to: 'authentication#confirm'
         end
       end
-      get 'password/forgot/:email', to: 'passwords#forgot', constraints: { email: /.*/ }
-      get "password/reset/:token", to: 'passwords#reset'
+      post 'password/forgot/', to: 'passwords#forgot', constraints: { email: /.*/ }
+      post 'password/reset/', to: 'passwords#reset'
       post '/auth/login', to: 'authentication#login'
     end
   end

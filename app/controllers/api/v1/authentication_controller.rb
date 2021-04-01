@@ -19,7 +19,7 @@ module Api
                 token =  params[:id]
                 
               @user = User.find_by_confirmation_token(params[:id])
-            byebug
+            
               if @user.present? && @user.confirmation_token_valid?
                 @user.mark_as_confirmed!
                 render json: {status: 'User confirmed successfully'}, status: :ok
