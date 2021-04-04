@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users do
-        member do
+        member do 
           get :confirm_email, to: 'authentication#confirm'
         end
       end
+      put 'password/update', to: 'passwords#update'
       post 'password/forgot/', to: 'passwords#forgot', constraints: { email: /.*/ }
       post 'password/reset/', to: 'passwords#reset'
       post '/auth/login', to: 'authentication#login'
