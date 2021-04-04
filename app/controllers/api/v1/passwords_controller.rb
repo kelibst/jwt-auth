@@ -22,6 +22,8 @@ module Api
         current_password = @current_user.authenticate(params[:current_password])
         if current_password.present?
           @current_user.update(password: params[:password][:new_password])
+           # SEND UPDATE EMAIL HERE
+          PasswordUpdateMailer.send_password_update_email(@current_user).deliver
             render json: {status: "Password successfully updated"}
           else
             @current_user.errors.add(:current_password,  "Your current password is wrong.")
