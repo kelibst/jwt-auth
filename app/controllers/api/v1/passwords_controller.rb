@@ -19,7 +19,14 @@ module Api
       end
 
       def update
-        byebug
+        current_password = @current_user.authenticate(params[:current_password])
+        if current_password.present?
+          @current_user.update(password: params[:password][:new_password])
+            render json: {status: "Password successfully updated"}
+          else
+            @current_user.errors.add(:current_password,  "Your current password is wrong.")
+            render json: @current_user.errors.full_messages, status: :unprocessable_entity
+        end
       end
 
       def reset
@@ -41,7 +48,7 @@ module Api
       end
 
       def password_update_params
-        params.require(:user).permit(:email, :password)
+        params.permit(:current_password, :new_password)
       end
     end
   end
