@@ -9,7 +9,12 @@ module Api
           render :login, status: :ok
 
         else
-          render json: { error: 'unauthorized' }, status: :unauthorized
+          if @user.present?
+            @user.errors.add(:password, "is not valid!")
+            render json: { error: @user.errors.full_messages }, status: :unauthorized
+          else
+            render json: { error: {"Email": "Email does not exit!"} }, status: :unauthorized
+          end
         end
       end
 
